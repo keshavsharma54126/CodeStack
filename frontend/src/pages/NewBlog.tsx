@@ -5,6 +5,7 @@ import 'react-quill/dist/quill.snow.css';
 import { useNavigate } from 'react-router-dom';
 import AppBar from '../components/Appbar';
 import { BACKEND_URL } from '../config';
+import MistralClient from '@mistralai/mistralai';
 
 
 const customColors = [
@@ -90,43 +91,108 @@ const NewBlog = () => {
             className="h-96 mb-4"
           />
         </div>
-        <div className='mt-20'>
-            <button onClick={async()=>{
-              
-                try{
-                    const token = localStorage.getItem('token')
-                    if(!token){
-                        navigate('/signup')
-                    }
-
-                    if(title.trim()==""){
-                      alert("Title of the blog can not be Empty")
-                      return;
-                    }
-                    if(content.trim()==""){
-                      alert("Content of the blog can not be empty")
-                      return;
-                    }
-                    const response = await axios.post(`${BACKEND_URL}/api/v1/blog/new`,{
-                        title,
-                        content
-    
-                    },{
-                        headers:{
-                            Authorization:localStorage.getItem('token')
+        <div className="flex flex-row items-center justify-center">
+            <div className='mt-20'>
+                <button onClick={async()=>{
+                  
+                    try{
+                        const token = localStorage.getItem('token')
+                        if(!token){
+                            navigate('/signup')
                         }
-                    })
-                    const id = response.data.id;
-                    navigate(`/blog/${id}`)
-                    
-                   
-                }catch(error){
-                    console.log("Error adding blog:",error)
+
+                        if(title.trim()==""){
+                          alert("Title of the blog can not be Empty")
+                          return;
+                        }
+                        if(content.trim()==""){
+                          alert("Content of the blog can not be empty")
+                          return;
+                        }
+                        const response = await axios.post(`${BACKEND_URL}/api/v1/blog/new`,{
+                            title,
+                            content
+        
+                        },{
+                            headers:{
+                                Authorization:localStorage.getItem('token')
+                            }
+                        })
+                        const id = response.data.id;
+                        navigate(`/blog/${id}`)
+                        
+                      
+                    }catch(error){
+                        console.log("Error adding blog:",error)
+                    }
                 }
-            }
+                    
+                }type="button" className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" >Add Blog</button>
                 
-            }type="button" className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" >Add Blog</button>
-      </div>
+          </div>
+            <div className='mt-20'>
+                <button onClick={async()=>{
+                        
+                        try{
+                           
+                            const token = localStorage.getItem('token')
+                            if(!token){
+                                navigate('/signup')
+                            }
+    
+                            if(title.trim()==""){
+                              alert("Title of the blog can not be empty if you want to use the Generate Using AI Feature")
+                              return;
+                            }
+                            setContent("Generating Content .....")
+                            const apiKey = "h8KoPUI8zR3iYSChGaWm6fsLCRq2jgqQ";
+
+                            const client = new MistralClient(apiKey);
+
+                            const chatStreamResponse = await client.chatStream({
+                              model: 'mistral-tiny',
+                              messages: [{role: 'user', content: `You are a skilled writer and expert in creating engaging and elegant blog content. Your task is to generate a blog post based on the following title:
+                              
+                              The blog should be around 5000 words and should captivate the reader with a compelling introduction, informative body, and a thoughtful conclusion. Use a sophisticated yet accessible writing style, incorporating rich vocabulary, smooth transitions, and varied sentence structures. Ensure the content is well-researched, accurate, and adds value to the reader.
+                              
+                              Structure:
+                              1. Introduction: Present the topic in an engaging manner, capturing the reader's attention and providing a clear thesis statement.
+                              2. Main Body: 
+                                  - First Section: Introduce the main points, provide background information, and explain the relevance of the topic.
+                                  - Second Section: Dive deeper into specific aspects, providing detailed explanations, examples, and insights.
+                                  - Third Section: Explore additional related points, consider counterarguments, and offer unique perspectives.
+                              3. Conclusion: Summarize the key points discussed, restate the importance of the topic, and leave the reader with a final thought or call to action.
+                              
+                              Tone and Style:
+                              - Sophisticated and elegant
+                              - Engaging and informative
+                              - Clear and concise
+                              - Thoughtful and reflective
+                              
+                              Ensure the blog is well-organized and proofread for grammar and spelling errors. Use proper formatting for headings, subheadings, and paragraphs. Avoid using jargon or overly complex language that may alienate the reader. Instead, aim for clarity and elegance in your writing.
+                              
+                              Begin the blog with the following title: ${title}`}],
+                            });
+
+                            let blogContent=""
+                            for await (const chunk of chatStreamResponse) {
+                              if (chunk.choices[0].delta.content !== undefined) {
+                                  blogContent += chunk.choices[0].delta.content;
+                                
+                              }
+                            }
+                            setContent(blogContent)
+                            
+                          
+                        }catch(error){
+                            console.log("Error adding blog:",error)
+                        }
+                    }
+                        
+                    }type="button" className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" >Generate Using AI</button>
+                    
+            </div>
+        </div>
       </div>
       
       
