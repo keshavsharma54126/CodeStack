@@ -1,7 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { HandThumbUpIcon, HandThumbDownIcon } from '@heroicons/react/24/solid';
-
-const LikeDislikeButton: React.FC = () => {
+import axios from 'axios';
+import { BACKEND_URL } from '../config';
+interface blogidInterface{
+  blogid:string
+}
+const LikeDislikeButton = ({blogid}:blogidInterface) => {
   const [liked, setLiked] = useState(false);
   const [disliked, setDisliked] = useState(false);
 
@@ -12,7 +16,18 @@ const LikeDislikeButton: React.FC = () => {
       setLiked(true);
       setDisliked(false);
     }
-  };
+    
+      useEffect(()=>{
+            axios.post(`${BACKEND_URL}/like`,{
+              blogid:blogid  
+            },
+            {
+              headers: {
+                Authorization: localStorage.getItem("token") || ""
+              }
+            })
+      },[liked])
+    }
 
   const handleDislike = () => {
     if (disliked) {
@@ -21,6 +36,17 @@ const LikeDislikeButton: React.FC = () => {
       setDisliked(true);
       setLiked(false);
     }
+    useEffect(()=>{
+      axios.post(`${BACKEND_URL}/dislike`,{
+        blogid:blogid  
+      },
+      {
+        headers: {
+          Authorization: localStorage.getItem("token") || ""
+        }
+      })
+},[disliked])
+
   };
 
   return (

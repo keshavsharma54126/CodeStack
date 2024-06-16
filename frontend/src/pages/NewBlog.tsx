@@ -144,7 +144,7 @@ const NewBlog = () => {
                               alert("Title of the blog can not be empty if you want to use the Generate Using AI Feature")
                               return;
                             }
-                            setContent("Generating Content .....")
+                            setContent("GENERATING CONTENT USING AI ................")
                             const apiKey = "h8KoPUI8zR3iYSChGaWm6fsLCRq2jgqQ";
 
                             const client = new MistralClient(apiKey);
@@ -170,6 +170,7 @@ const NewBlog = () => {
                               - Thoughtful and reflective
                               
                               Ensure the blog is well-organized and proofread for grammar and spelling errors. Use proper formatting for headings, subheadings, and paragraphs. Avoid using jargon or overly complex language that may alienate the reader. Instead, aim for clarity and elegance in your writing.
+                              Also make sure to use proper fonts,headings,formattings,bolds etc like a proper article written by a professional and eddited using a professional edditor and in the end don't use the terms like main body ,first section and all those things that i have used in this prompt to describe how the blog should be 
                               
                               Begin the blog with the following title: ${title}`}],
                             });

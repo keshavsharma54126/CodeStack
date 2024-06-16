@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import LikeDislikeButton from "./LikeDislikeButton";
 
 interface BlogCardInterface {
   authorName: string;
@@ -28,6 +29,9 @@ const BlogCard = ({ authorName, title, content, publishedDate, blogid }: BlogCar
             <div className="text-sm text-gray-500">
               {publishedDate} · <span className="inline-block bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs">Member-only</span>
             </div>
+          </div>
+          <div className="ml-32">
+            
           </div>
         </div>
         <div className="mb-4">
