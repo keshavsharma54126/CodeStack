@@ -5,32 +5,42 @@ const FeedButtons = React.memo(() => {
   const location = useLocation();
 
   const getButtonClass = (path: string) => {
-    return location.pathname === path ?"py-2.5 px-5 me-2 mb-2 text-sm font-medium text-red bg-white focus:outline-none  rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100"
-      :'py-2.5 px-5 me-2 mb-2 text-sm font-medium text-white bg-black focus:outline-none bg-black rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700';
+    return location.pathname === path ?"relative text-white group-hover:bg-white group-hover:text-black":"relative text-black group-hover:text-white"
   };
+  const getButtonClasss = (path:string)=>{
+      return location.pathname === path ?"absolute inset-0 w-full h-full bg-black border-2 border-black group-hover:bg-white":"absolute inset-0 w-full h-full bg-white border-2 border-black group-hover:bg-black"
+  }
 
   return (
     <div className="mt-16 flex flex-row items-center justify-center">
-      <div className="fixed flex flex-row gap-4 p-2">
+      <div className="fixed flex flex-row gap-10 p-2">
         <div>
           <Link to="/blogs">
-            <button type="button" className={getButtonClass('/blogs')}>
-              Blogs Feed
-            </button>
+              <button className="relative inline-block px-4 py-2 font-medium group">
+                  <span className="absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-black group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
+                  <span className={getButtonClasss('/blogs')}></span>
+                  <span className={getButtonClass('/blogs')}>My Feed</span>
+              </button>
           </Link>
         </div>
         <div>
           <Link to="/subscriptions">
-            <button type="button" className={getButtonClass('/subscriptions')}>
-              Subscriptions
-            </button>
+            
+              <button className="relative inline-block px-4 py-2 font-medium group">
+              <span className="absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-black group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
+              <span className={getButtonClasss('/subscriptions')}></span>
+              <span className={getButtonClass('/subscriptions')}>Subscriptions</span>
+              </button>
+           
           </Link>
         </div>
         <div>
           <Link to="/myblogs">
-            <button type="button" className={getButtonClass('/myblogs')}>
-              My Blogs
-            </button>
+              <button className="relative inline-block px-4 py-2 font-medium group">
+                  <span className="absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-black group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
+                  <span className={getButtonClasss('/myblogs')}></span>
+                  <span className={getButtonClass('/myblogs')}>My Blogs</span>
+              </button>
           </Link>
         </div>
       </div>

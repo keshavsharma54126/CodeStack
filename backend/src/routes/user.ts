@@ -88,7 +88,7 @@ userRouter.post('/signup',async(c)=>{
   
   })
 
-  userRouter.post('/userdetails',async(c)=>{
+  userRouter.post('/getuserinfo',async(c)=>{
     const durl = c.env.DATABASE_URL;
     const prisma = new PrismaClient({
       datasourceUrl: durl,

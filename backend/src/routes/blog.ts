@@ -5,6 +5,7 @@ import {verify} from 'hono/jwt'
 import { createBlogInput,updateBlogInput } from 'keshavsharma-blog';
 
 
+
 export const blogRouter = new Hono<{
     Bindings:{
       DATABASE_URL : string
@@ -178,6 +179,45 @@ export const blogRouter = new Hono<{
       console.log(e)
       return c.json({message:"error while uploading post"})
     }
+  })
+
+  blogRouter.post('/authorornot',async(c)=>{
+    const prisma = new PrismaClient({
+      datasourceUrl: c.env?.DATABASE_URL,
+    }).$extends(withAccelerate())
+    const body = await c.req.json();
+    
+    try{
+      const user = await prisma.user.findUnique({
+        where:{
+          email:body.email
+        },
+      })
+      if(!user){
+        return c.json({
+          message:false
+        })
+      }
+      const blog = await prisma.post.findFirst({
+        where:{
+          id:body.blogid,
+          authorId:user.id
+        }
+      })
+      if(blog){
+        return c.json({
+          message:true
+        })
+      }else{
+        return c.json({
+          message:false
+        })
+      }
+    }catch(e){
+      c.status(411)
+      console.log(e)
+      return c.json({message:"error while uploading post"})
+    } 
   })
 
   blogRouter.get('/:id',async(c)=>{
