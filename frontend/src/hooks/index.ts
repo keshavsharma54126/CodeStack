@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import axios from 'axios';
 
 export interface Blog {
+  like: any;
+  dislike: any;
   content: string;
   title: string;
   id: string;
@@ -10,6 +12,10 @@ export interface Blog {
   author: {
     name: string;
   };
+  postLikes:Array<{
+    liked?:boolean,
+    disliked?:boolean
+  }>
 }
 const formatDate = (dateString: string): string => {
     
@@ -111,4 +117,4 @@ export const useMyBlogs = (): [boolean, Blog[]] => {
   return [loading, blogs];
 };
 
-// The formatDate function should be included in the same file as the above hooks.
+

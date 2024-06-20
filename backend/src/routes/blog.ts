@@ -18,6 +18,8 @@ export const blogRouter = new Hono<{
   }>()
 
 
+
+
   blogRouter.use(async(c,next)=>{
     
     const authheader = c.req.header("authorization")||"";
@@ -81,6 +83,8 @@ export const blogRouter = new Hono<{
       c.status(411)
       console.log(e)
       return c.json({message:"error while uploading post"})
+    }finally{
+      await prisma.$disconnect()
     }
 
   })
@@ -113,6 +117,8 @@ export const blogRouter = new Hono<{
       c.status(411)
       console.log(e)
       return c.json({message:"error while uploading post"})
+    }finally{
+      await prisma.$disconnect()
     }
   })
 
@@ -130,6 +136,8 @@ export const blogRouter = new Hono<{
             title:true,
             id:true,
             publishedDate:true,
+            like:true,
+            dislike:true,
             author:{
               select:{
                 name:true
@@ -145,6 +153,8 @@ export const blogRouter = new Hono<{
       c.status(411)
       console.log(e)
       return c.json({message:"error while uploading post"})
+    }finally{
+      await prisma.$disconnect()
     }
   })
 
@@ -164,6 +174,8 @@ export const blogRouter = new Hono<{
           title:true,
           content:true,
           publishedDate:true,
+          like:true,
+          dislike:true,
           author:{
             select:{
               name:true
@@ -178,6 +190,8 @@ export const blogRouter = new Hono<{
       c.status(411)
       console.log(e)
       return c.json({message:"error while uploading post"})
+    }finally{
+      await prisma.$disconnect()
     }
   })
 
@@ -186,22 +200,13 @@ export const blogRouter = new Hono<{
       datasourceUrl: c.env?.DATABASE_URL,
     }).$extends(withAccelerate())
     const body = await c.req.json();
-    
+    const authorId = await c.get('userId')
     try{
-      const user = await prisma.user.findUnique({
-        where:{
-          email:body.email
-        },
-      })
-      if(!user){
-        return c.json({
-          message:false
-        })
-      }
+      
       const blog = await prisma.post.findFirst({
         where:{
-          id:body.blogid,
-          authorId:user.id
+          id:body.id,
+          authorId:authorId
         }
       })
       if(blog){
@@ -217,8 +222,65 @@ export const blogRouter = new Hono<{
       c.status(411)
       console.log(e)
       return c.json({message:"error while uploading post"})
-    } 
+    } finally{
+      await prisma.$disconnect()
+    }
   })
+
+
+//   const { PrismaClient } = require('@prisma/client');
+// const { withAccelerate } = require('@prisma/accelerate');
+
+blogRouter.put('/likedislike', async (c) => {
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env?.DATABASE_URL,
+  }).$extends(withAccelerate());
+
+  const body = await c.req.json();
+  const userId = c.get("userId");
+
+  try {
+    const blog = await prisma.post.update({
+      where: {
+        id: body.blogid,
+      },
+      data: {
+        like: body.likeno,
+        dislike: body.dislikeno,
+      },
+    });
+
+    await prisma.postLike.upsert({
+      where: {
+        user_post_unique: {
+          userId: userId,
+          postId: body.blogid,
+        },
+      },
+      update: {
+        liked: body.liked,
+        disliked: body.disliked,
+      },
+      create: {
+        userId: userId,
+        postId: body.blogid,
+        liked: body.liked,
+        disliked: body.disliked,
+      },
+    });
+
+    return c.json({
+      id: blog.id,
+    });
+  } catch (e) {
+    c.status(411);
+    console.log(e);
+    return c.json({ message: "error while liking/disliking post" });
+  } finally {
+    await prisma.$disconnect();
+  }
+});
+
 
   blogRouter.get('/:id',async(c)=>{
     const prisma = new PrismaClient({
@@ -226,6 +288,7 @@ export const blogRouter = new Hono<{
     }).$extends(withAccelerate())
     
     const blogid = c.req.param('id');
+    const userId = c.get('userId')
 
     try{
       const blog = await prisma.post.findFirst({
@@ -236,12 +299,18 @@ export const blogRouter = new Hono<{
           title:true,
           content:true,
           publishedDate:true,
+          like:true,
+          dislike:true,
           author:{
             select:{
               name:true
             }
-          }
-        }
+          },
+          postLikes:{
+              where:{userId:userId},
+              select:{liked:true,disliked:true},
+          },
+        },
       })
       return c.json({
         blog
@@ -250,7 +319,31 @@ export const blogRouter = new Hono<{
       c.status(411)
       console.log(e)
       return c.json({message:"error while uploading post"})
+    }finally{
+      await prisma.$disconnect()
     }
   })
-
- 
+  blogRouter.delete('/:id', async (c) => {
+    const prisma = new PrismaClient({
+      datasourceUrl: c.env?.DATABASE_URL,
+    }).$extends(withAccelerate());
+  
+    const blogid = c.req.param('id');
+  
+    try {
+      const blog = await prisma.post.delete({
+        where: {
+          id: blogid,
+        },
+      });
+      return c.json({
+        blog,
+      });
+    } catch (e) {
+      c.status(500);
+      console.error("Error while deleting post:", e);
+      return c.json({ message: "Error while deleting post" });
+    } finally {
+      await prisma.$disconnect();
+    }
+  });

@@ -1,7 +1,7 @@
 
 interface buttonProps{
     buttonText:string
-    onClick:()=>null
+    onClick:()=>Promise<void>
 }
 const Button: React.FC<buttonProps> = ({buttonText,onClick}) => {
   return (

@@ -5,45 +5,75 @@ import { BACKEND_URL } from '../config';
 
 interface BlogidInterface {
   blogid: string;
+  like: number;
+  likedd:boolean,
+  dislikedd:boolean
+  dislike: number;
 }
 
-const LikeDislikeButton = ({ blogid }: BlogidInterface) => {
-  const [liked, setLiked] = useState(false);
-  const [disliked, setDisliked] = useState(false);
- 
+const LikeDislikeButton = ({ blogid, likedd,dislikedd, like, dislike }: BlogidInterface) => {
+  const [liked, setLiked] = useState(likedd);
+  const [disliked, setDisliked] = useState(dislikedd);
+  const [likeno, setLikeno] = useState(like);
+  const [dislikeno, setDislikeno] = useState(dislike);
+
+  useEffect(() => {
+    setLiked(likedd);
+    setDisliked(dislikedd);
+    setLikeno(like);
+    setDislikeno(dislike);
+  }, [likedd, dislikedd, like, dislike]);
+
+
+
+  const updateLikesDislikes = async (newLiked: boolean, newDisliked: boolean, newLikeno: number, newDislikeno: number) => {
+    try {
+      await axios.put(
+        `${BACKEND_URL}/api/v1/blog/likedislike`,
+        {
+          blogid,
+          liked: newLiked,
+          disliked: newDisliked,
+          likeno: newLikeno,
+          dislikeno: newDislikeno,
+        },
+        {
+          headers: { Authorization: localStorage.getItem('token') || '' },
+        }
+      );
+    } catch (error) {
+      console.error('Error updating like/dislike:', error);
+    }
+  };
 
   const handleLike = () => {
-    setLiked(!liked);
-    setDisliked(false);
+    const newLiked = !liked;
+    const newLikeno = likeno + (newLiked ? 1 : -1);
+    const newDisliked = false;
+    const newDislikeno = disliked ? dislikeno - 1 : dislikeno;
+
+    setLiked(newLiked);
+    setLikeno(newLikeno);
+    setDisliked(newDisliked);
+    setDislikeno(newDislikeno);
+
+    updateLikesDislikes(newLiked, newDisliked, newLikeno, newDislikeno);
   };
 
   const handleDislike = () => {
-    setDisliked(!disliked);
-    setLiked(false);
+    const newDisliked = !disliked;
+    const newDislikeno = dislikeno + (newDisliked ? 1 : -1);
+    const newLiked = false;
+    const newLikeno = liked ? likeno - 1 : likeno;
+
+    setDisliked(newDisliked);
+    setDislikeno(newDislikeno);
+    setLiked(newLiked);
+    setLikeno(newLikeno);
+
+    updateLikesDislikes(newLiked, newDisliked, newLikeno, newDislikeno);
   };
-
- 
-
-  useEffect(() => {
-    if (liked) {
-      axios.post(`${BACKEND_URL}/like`, { blogid }, {
-        headers: { Authorization: localStorage.getItem('token') || "" }
-      }).catch((error) => {
-        console.error('Error liking the post:', error);
-      });
-    }
-  }, [liked, blogid]);
-
-  useEffect(() => {
-    if (disliked) {
-      axios.post(`${BACKEND_URL}/dislike`, { blogid }, {
-        headers: { Authorization: localStorage.getItem('token') || "" }
-      }).catch((error) => {
-        console.error('Error disliking the post:', error);
-      });
-    }
-  }, [disliked, blogid]);
-
+  
   return (
     <div className="flex space-x-4">
       <button
@@ -53,7 +83,7 @@ const LikeDislikeButton = ({ blogid }: BlogidInterface) => {
         }`}
       >
         <HandThumbUpIcon className={`h-5 w-5 ${liked ? 'text-white' : 'text-gray-600'}`} />
-        <span>223</span>
+        <span>{likeno}</span>
       </button>
 
       <button
@@ -63,9 +93,8 @@ const LikeDislikeButton = ({ blogid }: BlogidInterface) => {
         }`}
       >
         <HandThumbDownIcon className={`h-5 w-5 ${disliked ? 'text-white' : 'text-gray-600'}`} />
-        <span>2</span>
+        <span>{dislikeno}</span>
       </button>
-      
     </div>
   );
 };

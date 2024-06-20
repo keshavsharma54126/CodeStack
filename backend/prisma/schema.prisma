@@ -21,17 +21,34 @@ model User{
   posts Post[]
   followers Subscription[] @relation("Followers")
   following Subscription[] @relation("Following")
+  postLikes PostLike[]
 }
 
 model Post{
   id String @id @default(uuid())
   title String
   content String
+  like Int @default(0)
+  dislike Int @default(0)
   published Boolean @default(false)
   publishedDate DateTime @default(now())
   author User @relation(fields:[authorId],references: [id])
   authorId String
   restricted Boolean @default(false)
+  postLikes PostLike[]
+}
+
+model PostLike{
+  id String @id @default(uuid())
+  user User @relation(fields:[userId],references:[id])
+  userId String
+  post Post @relation(fields: [postId],references: [id])
+  postId String
+  liked Boolean @default(false)
+  disliked Boolean @default(false)
+  createdAt DateTime @default(now())
+
+  @@unique([userId,postId],name:"user_post_unique")
 }
 
 model Subscription{

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import LikeDislikeButton from "./LikeDislikeButton";
+import { HandThumbUpIcon, HandThumbDownIcon } from '@heroicons/react/24/solid';
 
 interface BlogCardInterface {
   authorName: string;
@@ -7,9 +7,12 @@ interface BlogCardInterface {
   content: string;
   publishedDate: string;
   blogid: string;
+  like:number;
+  dislike:number
+
 }
 
-const BlogCard = ({ authorName, title, content, publishedDate, blogid }: BlogCardInterface) => {
+const BlogCard = ({ authorName, title, content, publishedDate, blogid,like,dislike }: BlogCardInterface) => {
   
                     const parser = new DOMParser();
                     const doc1 = parser.parseFromString(title,'text/html')
@@ -24,11 +27,28 @@ const BlogCard = ({ authorName, title, content, publishedDate, blogid }: BlogCar
            <div className="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-lg border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow duration-300">
         <div className="flex items-center mb-4">
           <AvatarComponent name={authorName} />
+          
           <div className="ml-4 text-gray-700">
-            <span className="font-semibold text-lg">{authorName}</span>
-            <div className="text-sm text-gray-500">
-              {publishedDate} · <span className="inline-block bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs">Member-only</span>
-            </div>
+            <div className="flex flex-row gap-10">
+                <div>
+                      <span className="font-semibold text-lg">{authorName}</span>
+                      <div className="text-sm text-gray-500">
+                        {publishedDate} · <span className="inline-block bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs">Member-only</span>
+                      </div>
+                </div>
+                <div className="flex flex-row gap-10 ">
+                    <div className="flex flex-row gap-3">
+                        <HandThumbUpIcon className={`h-5 w-5 'text-gray-600'}`} />
+                         <span >{like}</span>
+                    </div>
+                        <div className="flex flex-row gap-3">
+                            <HandThumbDownIcon className={`h-5 w-5 text-gray-600`} />
+                            <span>{dislike}</span>
+                        </div>
+                </div>
+              
+            </div> 
+            
           </div>
           <div className="ml-32">
             

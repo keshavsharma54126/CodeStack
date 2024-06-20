@@ -7,6 +7,7 @@ import FullBlog from './pages/FullBlog'
 import NewBlog from './pages/NewBlog'
 import MyBlogs from './pages/MyBlogs'
 import Subscriptions from './pages/Subscriptions'
+import EditBlog from './pages/EditBlog'
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
           <Route path="/subscriptions"  element={<Subscriptions/>}/>
           <Route path="/blog/:id" element={<FullBlog/>}/>
           <Route path="/newblog" element = {<NewBlog/>}/>
+          <Route path="/editblog/:id" element={<EditBlog/>}/>
           
         </Routes>
       </BrowserRouter>

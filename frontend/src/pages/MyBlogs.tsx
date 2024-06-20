@@ -26,7 +26,7 @@ const MyBlogs = () => {
         </div>
       );
     }
-  
+  if(blogs.length>0){
     return (
       <div className="pt-16 bg-gray-100 min-h-screen">
         <Appbar />
@@ -44,6 +44,8 @@ const MyBlogs = () => {
                     content={blog.content}
                     blogid={blog.id}
                     publishedDate={blog.publishedDate}
+                    like= {blog.like}
+                    dislike = {blog.dislike}
                   />
                 </div>
               ))}
@@ -52,6 +54,24 @@ const MyBlogs = () => {
         </div>
       </div>
     );
+  }
+    else{
+      return (
+        <div className="pt-16 bg-gray-100 min-h-screen">
+        <Appbar />
+        <div className="relative ">
+          <div className="fixed top-16 left-0 right-0 bg-white shadow-md z-10 pt-2 pb-8">
+            <FeedButtons />
+          </div>
+          <div className="container mx-auto px-4 py-6 pt-20">
+            <div className="flex flex-col items-center space-y-6 mt-10">
+                    You have not published any Blogs.
+            </div>
+          </div>
+        </div>
+      </div>
+      )
+    }
   
   
 }
