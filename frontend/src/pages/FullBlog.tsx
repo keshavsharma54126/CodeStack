@@ -57,7 +57,7 @@ const FullBlog = () => {
 
   const handleConfirmDelete = async () => {
     try {
-      await axios.delete(`${BACKEND_URL}/api/v1/blog/${id}`, {
+      await axios.delete(`${BACKEND_URL}/api/v1/blog/delete/${id}`, {
         headers: { Authorization: localStorage.getItem('token') || '' }
       });
       setIsModal(false);

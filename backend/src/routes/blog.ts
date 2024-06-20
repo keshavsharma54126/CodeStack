@@ -323,7 +323,7 @@ blogRouter.put('/likedislike', async (c) => {
       await prisma.$disconnect()
     }
   })
-  blogRouter.delete('/:id', async (c) => {
+  blogRouter.delete('/delete/:id', async (c) => {
     const prisma = new PrismaClient({
       datasourceUrl: c.env?.DATABASE_URL,
     }).$extends(withAccelerate());
