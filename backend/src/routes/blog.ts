@@ -393,6 +393,58 @@ blogRouter.put('/likedislike', async (c) => {
       await prisma.$disconnect();
     }
   })
+  blogRouter.get('/search/:param1/:param2',async (c)=>{
+    const prisma = new PrismaClient({
+      datasourceUrl: c.env?.DATABASE_URL,
+    }).$extends(withAccelerate());
+    const category = c.req.param('param1')
+    const searchKey = c.req.param('param2')
+
+    if(!searchKey){
+      return c.json({
+        posts:[]
+      })
+    }
+    try{
+      if(category ==='Author'){
+        const users = await prisma.user.findMany({
+          where:{
+            name:{
+              contains:searchKey,
+              mode:'insensitive'
+            }
+          },
+          select:{
+            posts:true
+          }
+        })
+        let posts = users.flatMap(user=>user.posts)
+        return c.json({
+           posts
+        })
+       
+      }else{
+        const posts = await prisma.post.findMany({
+          where:{
+            title:{
+              contains:searchKey,
+              mode:'insensitive'
+            }
+          },
+        })
+        
+        return c.json({
+          posts
+        })
+      }
+    }catch(e){
+      c.status(500);
+      console.error('Error while searching haahaa: ',e);
+      return c.json({message:"Error while searching "})
+    }finally{
+      await prisma.$disconnect()
+    }
+  })
 
   blogRouter.get('/:id',async(c)=>{
     const prisma = new PrismaClient({
@@ -458,4 +510,6 @@ blogRouter.put('/likedislike', async (c) => {
     } finally {
       await prisma.$disconnect();
     }
+
   });
+

@@ -44,8 +44,7 @@ const Subscriptions = () => {
                     title={blog.title}
                     content={blog.content}
                     blogid={blog.id}
-                    publishedDate={blog.publishedDate}
-                  />
+                    publishedDate={blog.publishedDate} like={blog.like} dislike={blog.dislike}                  />
                 </div>
               ))}
             </div>
