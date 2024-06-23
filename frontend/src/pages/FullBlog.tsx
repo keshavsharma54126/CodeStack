@@ -8,6 +8,8 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { BACKEND_URL } from '../config';
 import Modal from '../components/Modal';
+import CommentSection from '../components/CommentSection';
+
 
 const FullBlog = () => {
   const { id } = useParams<{ id: string }>();
@@ -68,7 +70,13 @@ const FullBlog = () => {
       setIsModal(false);
     }
   };
-
+  const handleSubscribe = async()=>{
+    try{
+      
+    }catch(e){
+      console.error("error while subscribing:",e)
+    }
+  }
 
   if (loading) {
     return (
@@ -147,29 +155,46 @@ const FullBlog = () => {
               </div>
              
               <div className="flex justify-center w-full mt-4">
-              <div className="">
+              <div className="flex flex-col gap-10">
                   <button 
+                  onClick={handleSubscribe}
                   type="button" 
                   className="text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition transform hover:scale-105 ml-4"
-                >
-                  Subscribe
-                </button>
-                  </div>
+                  >
+                    Subscribe
+                  </button>
+        
+                    <div className="">
+                      <CommentSection blogId={blog.id}/>
+                    </div>
+              
+               </div>
+               
                
               </div>
+
+             
+              <div>
+                
+              </div>
             </div>
+            
           </div>
-              
+          
+          
         </div>
+       
 
       </div>
-      <Modal
+              <Modal
                 isOpen={isModal}
                 onClose={handleCloseModal}
                 onConfirm={handleConfirmDelete}
                 title="Confirm Deletion"
                 message="Are you sure you want to delete this blog?"
               />
+              
+              
      
     </div>
   );

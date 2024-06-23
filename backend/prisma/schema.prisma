@@ -22,6 +22,7 @@ model User{
   followers Subscription[] @relation("Followers")
   following Subscription[] @relation("Following")
   postLikes PostLike[]
+  comments Comments[]
 }
 
 model Post{
@@ -36,6 +37,7 @@ model Post{
   authorId String
   restricted Boolean @default(false)
   postLikes PostLike[] 
+  comments Comments[]
 }
 
 model PostLike{
@@ -49,6 +51,17 @@ model PostLike{
   createdAt DateTime @default(now())
 
   @@unique([userId,postId],name:"user_post_unique")
+}
+
+model Comments{
+  id String @id @default(uuid())
+  content String 
+  createdAt DateTime @default(now())
+  author User @relation(fields: [authorId],references: [id],onDelete:Cascade)
+  authorId String
+  post Post @relation(fields: [postId],references: [id],onDelete:Cascade)
+  postId String
+  
 }
 
 model Subscription{

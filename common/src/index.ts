@@ -22,7 +22,18 @@ export const updateBlogInput = z.object({
     id : z.string()
 })
 
+export const createCommentInput = z.object({
+    content:z.string()
+
+})
+
+export const updateCommentInput = z.object({
+    content:z.string(),
+    id:z.string()
+})
 export type signupInput = z.infer<typeof signupInput>
 export type signinInput = z.infer<typeof signinInput>
 export type createBlogInput = z.infer<typeof createBlogInput>
 export type updateBlogInput = z.infer<typeof updateBlogInput>
+export type createCommentInput = z.infer<typeof createCommentInput>
+export type updateCommentInput = z.infer<typeof updateCommentInput>

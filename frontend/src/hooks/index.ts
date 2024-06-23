@@ -17,6 +17,13 @@ export interface Blog {
     disliked?:boolean
   }>
 }
+export interface Comment{
+  content:string;
+  createdAt:string;
+  author:{
+    name:string
+  }
+}
 const formatDate = (dateString: string): string => {
     
     try {
@@ -118,3 +125,25 @@ export const useMyBlogs = (): [boolean, Blog[]] => {
 };
 
 
+export const useComments = ({id}:{id:string}):[boolean,Comment[]]=>{
+    const[loading,setLoading] = useState(true);
+    const[comments,setComments] = useState<Comment[]>([])
+    useEffect(()=>{
+      axios.get(`${BACKEND_URL}/api/v1/blog/comment/${id}`,{
+        headers: {
+          Authorization: localStorage.getItem("token") || ""
+        }
+      }).then(response=>{
+        const comments = response.data.comments.map((comment:Comment)=>({
+          ...comment,
+          createdAt:formatDate(comment.createdAt)
+        }))
+        setLoading(false)
+        setComments(comments)
+      }).catch(e=>{
+        console.error(e)
+        setLoading(false)
+      })
+    },[]);
+    return [loading,comments]
+}

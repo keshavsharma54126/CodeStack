@@ -2,7 +2,7 @@ import { Hono } from 'hono';
 import { PrismaClient } from '@prisma/client/edge'
 import { withAccelerate } from '@prisma/extension-accelerate'
 import {verify} from 'hono/jwt'
-import { createBlogInput,updateBlogInput } from 'keshavsharma-blog';
+import { createBlogInput,updateBlogInput,createCommentInput,updateCommentInput } from 'keshavsharma-blog';
 
 
 
@@ -281,6 +281,118 @@ blogRouter.put('/likedislike', async (c) => {
   }
 });
 
+  blogRouter.post('/newcomment',async(c)=>{
+    const prisma = new PrismaClient({
+      datasourceUrl: c.env?.DATABASE_URL,
+    }).$extends(withAccelerate())
+    
+    const userId= await c.get('userId')
+    const body = await c.req.json()
+    const {success} = createCommentInput.safeParse(body)
+    if(!success){
+      c.status(411);
+      return   c.json({
+        message: "incorrect title or content type "
+      })
+    }
+    try{
+      const comment = await prisma.comments.create({
+        data:{
+          content:body.content,
+          postId:body.blogid,
+          authorId:userId,
+
+        }
+      })
+      return c.json({
+        message:"comment created successfully",
+        id:comment.id
+      })
+    }catch(e){
+      c.status(411);
+      console.error(e)
+      return c.json({
+        message:"error while creating comment"
+      })
+    }finally{
+      await prisma.$disconnect();
+    }
+  }) 
+  blogRouter.get('/comment/:blogid', async (c) => {
+    const prisma = new PrismaClient({
+      datasourceUrl: c.env?.DATABASE_URL,
+    }).$extends(withAccelerate());
+    
+    const blogId = c.req.param('blogid');
+  
+    try {
+      const comments = await prisma.comments.findMany({
+        where: {
+          postId: blogId,
+        },
+        select: {
+          id: true,
+          content: true,
+          createdAt: true,
+          author: {
+            select: {
+              name: true,
+            },
+          },
+        },
+      });
+  
+      return c.json({
+        comments,
+      });
+    } catch (e) {
+      c.status(500);
+      console.error(e);
+      return c.json({
+        message: 'error while fetching comments',
+      });
+    } finally {
+      await prisma.$disconnect();
+    }
+  });
+
+  blogRouter.put('/editcomment/:commentid',async(c)=>{
+    const prisma = new PrismaClient({
+      datasourceUrl: c.env?.DATABASE_URL,
+    }).$extends(withAccelerate())
+    const commentId= c.req.param('commentid')
+    const userId= await c.get('userId')
+    const body = await c.req.json()
+    const {success} = updateCommentInput.safeParse(body)
+    if(!success){
+      c.status(411);
+      return   c.json({
+        message: "incorrect title or content type "
+      })
+    }
+    try{
+      const updatedComment = await prisma.comments.update({
+        where:{
+          id:commentId
+        },
+        data:{
+          content:body.content,
+        }
+      })
+      return c.json({
+        message:"comment created successfully",
+        updatedComment
+      })
+    }catch(e){
+      c.status(411);
+      console.error(e)
+      return c.json({
+        message:"error while updating comment"
+      })
+    }finally{
+      await prisma.$disconnect();
+    }
+  })
 
   blogRouter.get('/:id',async(c)=>{
     const prisma = new PrismaClient({

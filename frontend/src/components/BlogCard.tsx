@@ -29,21 +29,21 @@ const BlogCard = ({ authorName, title, content, publishedDate, blogid,like,disli
           <AvatarComponent name={authorName} />
           
           <div className="ml-4 text-gray-700">
-            <div className="flex flex-row gap-10">
+            <div className="flex flex-row gap-8">
                 <div>
                       <span className="font-semibold text-lg">{authorName}</span>
                       <div className="text-sm text-gray-500">
                         {publishedDate} · <span className="inline-block bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs">Member-only</span>
                       </div>
                 </div>
-                <div className="flex flex-row gap-10 ">
+                <div className="flex flex-row gap-8 bg-slate-200 mx-auto my-auto p-2 rounded-xl">
                     <div className="flex flex-row gap-3">
-                        <HandThumbUpIcon className={`h-5 w-5 'text-gray-600'}`} />
-                         <span >{like}</span>
+                        <HandThumbUpIcon className={`h-6 w-5 'text-gray-600'}`} />
+                         <span className="">{like}</span>
                     </div>
                         <div className="flex flex-row gap-3">
-                            <HandThumbDownIcon className={`h-5 w-5 text-gray-600`} />
-                            <span>{dislike}</span>
+                            <HandThumbDownIcon className={`h-6 w-5 text-gray-600`} />
+                            <span className="">{dislike}</span>
                         </div>
                 </div>
               
@@ -60,7 +60,7 @@ const BlogCard = ({ authorName, title, content, publishedDate, blogid,like,disli
         <div className="text-gray-700 mb-4 line-clamp-3" >{contentText}
         </div>
         <div className="text-gray-500 text-sm">
-          {`${Math.ceil(content.length / 60)} minute read`}
+          {`${Math.ceil(content.length / 60)} seconds read`}
         </div>
         <div className="bg-gray-100 h-px w-full mt-4"></div>
       </div>
