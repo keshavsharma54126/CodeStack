@@ -4,9 +4,9 @@ workers_dev = true
 node_compat = true
 
 [vars]
-DATABASE_URL="prisma://accelerate.prisma-data.net/?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5IjoiMWI5M2Y3OTQtNDZjZS00MDVhLTk1NDgtN2Y3NThhMzljZjc5IiwidGVuYW50X2lkIjoiMmEzNDQxMmU5Y2M0Y2MxNjk4MzA4NDIyYmE1OWJlNTExYTU5NTI5MDY0Mjg0MDBjOWQ1Yjc4NzhiODE2N2JkMSIsImludGVybmFsX3NlY3JldCI6IjVmMGQ2ZWIzLWZjOTUtNDI4Zi1hZTgzLWRkMWNlNTk0ZDVjZiJ9.FYwO574gyWGphWpyVSLsY6_RkYy0uTfriZlbG4Bqt9o"
+DATABASE_URL=""
 
-JWT_SECRET="keshav@1232134"
+JWT_SECRET=""
 # MY_VAR = "my-variable"
 
 # [[kv_namespaces]]
