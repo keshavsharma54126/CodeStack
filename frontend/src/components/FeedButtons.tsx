@@ -13,7 +13,7 @@ const FeedButtons = React.memo(() => {
 
   return (
     <div className="mt-48  md:mt-20 flex flex-row items-center justify-center">
-      <div className="fixed flex flex-row gap-8 md:gap-10 p-2">
+      <div className="fixed flex flex-row gap-5 md:gap-10 p-3">
         <div>
           <Link to="/blogs">
               <button className="relative inline-block px-4 py-2 font-medium group">
