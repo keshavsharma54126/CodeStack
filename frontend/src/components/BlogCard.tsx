@@ -28,8 +28,8 @@ const BlogCard = ({ authorName, title, content, publishedDate, blogid,like,disli
         <div className="flex items-center mb-4">
           <AvatarComponent name={authorName} />
           
-          <div className="ml-4 text-gray-700">
-            <div className="flex flex-row gap-8">
+          <div className="ml-4 text-gray-700 ">
+            <div className="flex flex-col md:flex-row gap-8 ">
                 <div>
                       <span className="font-semibold text-lg">{authorName}</span>
                       <div className="text-sm text-gray-500">
@@ -72,7 +72,7 @@ const BlogCard = ({ authorName, title, content, publishedDate, blogid,like,disli
 
 function AvatarComponent({ name }: { name: string }) {
   return (
-    <div className="relative inline-flex items-center justify-center w-12 h-12 overflow-hidden bg-gray-200 rounded-full dark:bg-gray-600">
+    <div className="mb-24 md:mb-0 relative inline-flex items-center justify-center w-44 md:w-12  h-12 overflow-hidden bg-gray-200 rounded-full dark:bg-gray-600">
       <span className="font-medium text-gray-600 dark:text-gray-300 text-lg">{name[0]}</span>
     </div>
   );

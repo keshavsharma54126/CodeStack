@@ -91,7 +91,7 @@ const NewBlog = () => {
             className="h-96 mb-4"
           />
         </div>
-        <div className="flex flex-row items-center justify-center">
+        <div className="flex flex-row items-center justify-center mt-14 md:mt-0">
             <div className='mt-20'>
                 <button onClick={async()=>{
                   

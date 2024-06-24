@@ -115,7 +115,7 @@ const FullBlog = () => {
               <div className="flex flex-row mt-2 mb-4 gap-8">
                 <LikeDislikeButton blogid={blog.id} likedd={blog.postLikes[0]?.liked ?? false} dislikedd={blog.postLikes[0]?.disliked?? false} like={blog.like} dislike={blog.dislike}/>
                 {isAuthor && (
-                  <div className="flex flex-row gap-3">
+                  <div className="flex flex-col gap-2  md:flex-row">
                     <button className="relative inline-flex items-center justify-start px-6 py-2 overflow-hidden font-medium transition-all bg-cyan-500 rounded-xl group" onClick={handleOnclick}>
                       <span className="absolute top-0 right-0 inline-block w-4 h-4 transition-all duration-500 ease-in-out bg-cyan-700 rounded group-hover:-mr-4 group-hover:-mt-4">
                         <span className="absolute top-0 right-0 w-5 h-5 rotate-45 translate-x-1/2 -translate-y-1/2 bg-white"></span>

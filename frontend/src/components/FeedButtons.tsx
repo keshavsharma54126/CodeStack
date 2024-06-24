@@ -12,14 +12,14 @@ const FeedButtons = React.memo(() => {
   }
 
   return (
-    <div className="mt-48 md:mt-20 flex flex-row items-center justify-center">
-      <div className="fixed flex flex-row gap-10 p-2">
+    <div className="mt-48  md:mt-20 flex flex-row items-center justify-center">
+      <div className="fixed flex flex-row gap-8 md:gap-10 p-2">
         <div>
           <Link to="/blogs">
               <button className="relative inline-block px-4 py-2 font-medium group">
                   <span className="absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-black group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
                   <span className={getButtonClasss('/blogs')}></span>
-                  <span className={getButtonClass('/blogs')}>My Feed</span>
+                  <span className={getButtonClass('/blogs')}>MyFeed</span>
               </button>
           </Link>
         </div>
@@ -39,7 +39,7 @@ const FeedButtons = React.memo(() => {
               <button className="relative inline-block px-4 py-2 font-medium group">
                   <span className="absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-black group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
                   <span className={getButtonClasss('/myblogs')}></span>
-                  <span className={getButtonClass('/myblogs')}>My Blogs</span>
+                  <span className={getButtonClass('/myblogs')}>MyBlogs</span>
               </button>
           </Link>
         </div>

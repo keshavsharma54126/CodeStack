@@ -75,7 +75,7 @@ const LikeDislikeButton = ({ blogid, likedd,dislikedd, like, dislike }: BlogidIn
   };
   
   return (
-    <div className="flex space-x-4">
+    <div className="flex space-x-2 md:space-x-4">
       <button
         onClick={handleLike}
         className={`flex items-center space-x-2 px-4 py-2 rounded-full text-sm font-medium focus:outline-none ${
