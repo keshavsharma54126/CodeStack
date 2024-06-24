@@ -2,8 +2,8 @@
 
 const BlogSkeleton = () => {
   return (
-<div className="w-full max-w-2xl animate-pulse mx-auto my-auto">
-  <div className="max-w-2xl mx-auto p-6 bg-gray-200 shadow-md rounded-md border border-gray-200">
+<div className=" w-full max-w-2xl animate-pulse mx-auto my-auto">
+  <div className=" max-w-2xl mx-auto p-6 bg-gray-200 shadow-md rounded-md border border-gray-200">
     <div className="flex items-center mb-2">
       <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-300 rounded-full">
         <span className="font-medium text-gray-600 dark:text-gray-300">&nbsp;</span>

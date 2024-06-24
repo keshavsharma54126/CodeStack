@@ -27,6 +27,7 @@ const Auth = ({type}:{type:"signup"|"signin"}) => {
   }
   return (
 <div className="h-screen flex flex-col justify-center items-center">
+  <h1 className="text-black font-bold text-4xl p-4 my-4 border border-black shadow-xl rounded-xl">Welcome to FinalDraft ....</h1>
       <div className="flex flex-col justify-center items-center p-4 bg-white rounded-md">
         <div className="text-3xl font-bold p-2">
           Create an account

@@ -54,7 +54,7 @@ const NewBlog = () => {
   return (
     <div className="min-h-screen bg-gray-100 pt-24 ">
     <AppBar />
-    <div className="container mx-auto my-auto p-4 sm:p-8">
+    <div className="mt-32 md:mt-1 container mx-auto my-auto p-4 sm:p-8">
       <div className="bg-white shadow-md rounded-lg p-6 max-w-4xl min-h-4xl mx-auto">
         <h1 className="text-3xl font-semibold mb-8 text-center">Create New Blog</h1>
         
@@ -75,8 +75,8 @@ const NewBlog = () => {
           />
         </div>
         
-        <div  >
-          <label className="block text-gray-700 text-xl font-bold mb-4 " htmlFor="content">
+        <div  mt-32 md:mt-1>
+          <label className=" mt-32 md:mt-1 block text-gray-700 text-xl font-bold mb-4 " htmlFor="content">
             Blog Content
           </label>
           <ReactQuill 
