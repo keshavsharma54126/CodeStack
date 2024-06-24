@@ -64,7 +64,7 @@ const CommentSection = ({ blogId }:{blogId:string}) => {
   };
 
   return (
-    <div>
+    <div className="">
     <button className="relative inline-block text-lg group" onClick={openModal}>
       <span className="relative z-10 block px-5 py-3 overflow-hidden font-medium leading-tight text-gray-800 transition-colors duration-300 ease-out border-2 border-gray-900 rounded-lg group-hover:text-white">
         <span className="absolute inset-0 w-full h-full px-5 py-3 rounded-lg bg-gray-50"></span>
@@ -75,7 +75,7 @@ const CommentSection = ({ blogId }:{blogId:string}) => {
     </button>
 
     {isOpen && (
-      <div className=" fixed  h-full z-10 overflow-y-auto mt-20  inset-0">
+      <div className="mt-52 md:mt-24 fixed  h-full z-10 overflow-y-auto inset-0 infinite-scroll">
         <div className="flex items-center justify-end min-h-screen px-4 text-center">
           <div className="fixed inset-0 bg-black opacity-30"></div>
           <div className="w-full max-w-2xl p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-lg z-20">

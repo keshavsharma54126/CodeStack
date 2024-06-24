@@ -107,7 +107,7 @@ const FullBlog = () => {
         <div className="fixed top-16 left-0 right-0 bg-white shadow-md z-10 pt-2 pb-8">
           <FeedButtons />
         </div>
-        <div className="container mx-auto px-4 py-6 pt-20">
+        <div className="md:-mt-28 container mx-auto px-2 py-6 pt-20 ">
           <div className="max-w-6xl mx-auto bg-white p-8 shadow-md rounded-md flex flex-col lg:flex-row">
             <div className="flex-1">
               <h1 className="text-4xl font-bold mb-4 text-center lg:text-left" dangerouslySetInnerHTML={{ __html: blog.title }}></h1>
