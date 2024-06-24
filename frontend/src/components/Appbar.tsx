@@ -19,7 +19,7 @@ interface result{
   restricted:boolean
 }
 
-const AppBar = () => {
+const AppBar: React.FC = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [name,setName] = useState<string>("");
   const [search,setSearch]= useState<string>('');
