@@ -28,7 +28,7 @@ const MyBlogs = () => {
     }
   if(blogs.length>0){
     return (
-      <div className="mt-32 md:mt-1 pt-16 bg-gray-100 min-h-screen">
+      <div className="mt-32 md:mt-5 pt-16 bg-gray-100 min-h-screen">
         <Appbar />
         <div className="relative ">
           <div className="fixed top-16 left-0 right-0 bg-white shadow-md z-10 pt-2 pb-8">

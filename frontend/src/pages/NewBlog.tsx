@@ -54,7 +54,7 @@ const NewBlog = () => {
   return (
     <div className="min-h-screen bg-gray-100 pt-24 ">
     <AppBar />
-    <div className="mt-48 md:mt-1 container mx-auto my-auto p-4 sm:p-8">
+    <div className="mt-48 md:mt-10 container mx-auto my-auto p-4 sm:p-8">
       <div className="bg-white shadow-md rounded-lg p-6 max-w-4xl min-h-4xl mx-auto">
         <h1 className="text-3xl font-semibold mb-8 text-center">Create New Blog</h1>
         
