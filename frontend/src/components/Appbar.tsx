@@ -26,8 +26,8 @@ const AppBar = () => {
   const [isDropDown,setIsDropDown] = useState(false)
   const [category,setCategory] = useState<string>('All Category')
   const[results,setResults] = useState<result[]>([])
-  const inputRef = useRef(null)
-  const resultRef = useRef(null)
+  const inputRef = useRef<HTMLInputElement>(null)
+  const resultRef = useRef<HTMLInputElement>(null)
 
   const handleDropDown =()=>{
     setIsDropDown(!isDropDown)
