@@ -1,11 +1,16 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useNavigate } from 'react-router-dom';
 import AppBar from '../components/Appbar';
 import { BACKEND_URL } from '../config';
 import MistralClient from '@mistralai/mistralai';
+import { storage, firestore } from '../firebaseConfig'; // Import Firebase storage and Firestore
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+
+
 
 
 const customColors = [
@@ -17,22 +22,60 @@ const customColors = [
 ];
 
 const modules = {
-  toolbar: [
-    [{ 'font': [] }],
-    [{ 'size': ['small', false, 'large', 'huge'] }],  // Custom dropdown
-    ['bold', 'italic', 'underline', 'strike'],        // Toggled buttons
-    [{ 'color': customColors }, { 'background': customColors }],  // Custom color dropdowns
-    [{ 'script': 'sub'}, { 'script': 'super' }],      // Superscript/Subscript
-    ['blockquote', 'code-block'],
-    [{ 'header': 1 }, { 'header': 2 }],               // Custom button values
-    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-    [{ 'indent': '-1'}, { 'indent': '+1' }],          // Outdent/Indent
-    [{ 'direction': 'rtl' }],                         // Text direction
-    [{ 'align': [] }],                                // Alignment options
-    ['link', 'image', 'video'],
-    ['clean']                                         // Remove formatting
-  ]
-};
+  toolbar: {
+    container: [
+      [{ 'font': [] }],
+      [{ 'size': ['small', false, 'large', 'huge'] }],
+      ['bold', 'italic', 'underline', 'strike'],
+      [{ 'color': customColors }, { 'background': customColors }],
+      [{ 'script': 'sub' }, { 'script': 'super' }],
+      ['blockquote', 'code-block'],
+      [{ 'header': 1 }, { 'header': 2 }],
+      [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+      [{ 'indent': '-1' }, { 'indent': '+1' }],
+      [{ 'direction': 'rtl' }],
+      [{ 'align': [] }],
+      ['link', 'image', 'video'],
+      ['clean']
+    ],
+    handlers: {
+      'image': async function (this:any) {
+        const input = document.createElement('input');
+        input.setAttribute('type', 'file');
+        input.setAttribute('accept', 'image/*');
+        input.click();
+
+        input.onchange = async () => {
+          const file = input.files?.[0];
+          if (file) {
+            const storageRef = ref(storage, `images/${file.name}`);
+            try {
+              const snapshot = await uploadBytes(storageRef, file);
+              const downloadURL = await getDownloadURL(snapshot.ref);
+
+              // Save image URL to Firestore
+              await addDoc(collection(firestore, 'images'), {
+                url: downloadURL,
+                timestamp:serverTimestamp()
+              });
+              
+              const quill = this.quill;
+              const range = quill.getSelection(true);
+              quill.insertEmbed(range.index, 'image', downloadURL);
+              const img = quill.container.querySelector(`img[src="${downloadURL}"]`);
+              if (img) {
+                img.classList.add('custom-quill-image');
+              }
+
+            } catch (error) {
+              console.error('Failed to upload image: ', error);
+            }
+          }
+        };
+      }
+      }
+    }
+  }
 
 const formats = [
   'font', 'size',
@@ -41,15 +84,28 @@ const formats = [
   'script',
   'blockquote', 'code-block',
   'header',
-  'list', 'bullet', 'indent',
-  'direction', 'align',
-  'link', 'image', 'video'
+  'list', 'bullet',
+  'indent',
+  'direction',
+  'align',
+  'link',
+  'image',
+  'video'
 ];
 
-const NewBlog = () => {
-    const [title,setTitle] = useState<string>('')
+const NewBlog: React.FC = () => {
+  const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
-  const navigate = useNavigate()
+  const quillRef = useRef<ReactQuill>(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const quill = quillRef.current?.getEditor();
+    if (quill) {
+      quill.getModule('toolbar').addHandler('image', modules.toolbar.handlers.image.bind({ quill }));
+    }
+  }, []);
+   
 
   return (
     <div className="min-h-screen bg-gray-100 pt-24 ">
@@ -81,6 +137,7 @@ const NewBlog = () => {
           </label>
           <ReactQuill 
             id="content"
+            ref={quillRef}
             modules={modules} 
             formats={formats} 
             value={content} 

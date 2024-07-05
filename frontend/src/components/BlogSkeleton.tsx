@@ -1,9 +1,14 @@
+import FeedButtons from "./FeedButtons"
 
 
 const BlogSkeleton = () => {
   return (
 <div className=" w-full max-w-2xl animate-pulse mx-auto my-auto">
+        <div className="fixed top-16 left-0 right-0 bg-white shadow-md z-10 pt-2 pb-8">
+          <FeedButtons />
+        </div>
   <div className=" max-w-2xl mx-auto p-6 bg-gray-200 shadow-md rounded-md border border-gray-200">
+
     <div className="flex items-center mb-2">
       <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-300 rounded-full">
         <span className="font-medium text-gray-600 dark:text-gray-300">&nbsp;</span>
@@ -23,6 +28,7 @@ const BlogSkeleton = () => {
     <div className="text-gray-500 text-sm bg-gray-300 rounded h-3 w-16">
     </div>
     <div className="bg-gray-300 h-1 w-full mt-4 rounded"></div>
+    
   </div>
 </div>
   )

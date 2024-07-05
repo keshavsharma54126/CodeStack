@@ -37,7 +37,7 @@ const MyBlogs = () => {
           <div className="container mx-auto px-4 py-6 pt-20">
             <div className="flex flex-col items-center space-y-6 mt-10">
               {blogs.map((blog) => (
-                <div key={blog.id} className="w-full max-w-2xl">
+                <div key={blog.id} className="w-full ">
                   <BlogCard
                     authorName={blog.author.name}
                     title={blog.title}

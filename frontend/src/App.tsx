@@ -25,6 +25,7 @@ function App() {
           <Route path="/newblog" element = {<NewBlog/>}/>
           <Route path="/editblog/:id" element={<EditBlog/>}/>
           
+          
         </Routes>
       </BrowserRouter>
     </>

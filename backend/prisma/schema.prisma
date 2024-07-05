@@ -38,6 +38,7 @@ model Post{
   restricted Boolean @default(false)
   postLikes PostLike[] 
   comments Comments[]
+  images Images[] @relation("PostImages")
 }
 
 model PostLike{
@@ -51,6 +52,13 @@ model PostLike{
   createdAt DateTime @default(now())
 
   @@unique([userId,postId],name:"user_post_unique")
+}
+
+model Images{
+  id String @id @default(uuid())
+  url String 
+  post Post @relation ("PostImages",fields:[postId],references:[id],onDelete: Cascade)
+  postId String
 }
 
 model Comments{
