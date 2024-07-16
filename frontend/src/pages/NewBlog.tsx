@@ -9,6 +9,8 @@ import MistralClient from '@mistralai/mistralai';
 import { storage, firestore } from '../firebaseConfig'; // Import Firebase storage and Firestore
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import Quill from 'quill';
+
 
 
 
@@ -45,27 +47,32 @@ const modules = {
         input.setAttribute('accept', 'image/*');
         input.click();
 
-        input.onchange = async () => {
-          const file = input.files?.[0];
-          if (file) {
-            const storageRef = ref(storage, `images/${file.name}`);
-            try {
-              const snapshot = await uploadBytes(storageRef, file);
-              const downloadURL = await getDownloadURL(snapshot.ref);
+    input.onchange = async () => {
+      const file = input.files?.[0];
+      if (file) {
+        const storageRef = ref(storage, `images/${file.name}`);
+        try {
+          const snapshot = await uploadBytes(storageRef, file);
+          const downloadURL = await getDownloadURL(snapshot.ref);
 
-              // Save image URL to Firestore
-              await addDoc(collection(firestore, 'images'), {
-                url: downloadURL,
-                timestamp:serverTimestamp()
-              });
-              
-              const quill = this.quill;
-              const range = quill.getSelection(true);
-              quill.insertEmbed(range.index, 'image', downloadURL);
-              const img = quill.container.querySelector(`img[src="${downloadURL}"]`);
-              if (img) {
-                img.classList.add('custom-quill-image');
-              }
+          // Save image URL to Firestore
+          await addDoc(collection(firestore, 'images'), {
+            url: downloadURL,
+            timestamp: serverTimestamp()
+          });
+
+          const quill = this.quill;
+          const range = quill.getSelection(true);
+          const index = range ? range.index : 0;
+
+          quill.insertEmbed(index, 'image', downloadURL, Quill.sources.USER);
+          quill.setSelection(index + 1);
+
+          // Add custom class to the inserted image
+          const image = quill.container.querySelector(`img[src="${downloadURL}"]`);
+          if (image) {
+            image.classList.add('custom-quill-image');
+          }
 
             } catch (error) {
               console.error('Failed to upload image: ', error);
@@ -202,7 +209,7 @@ const NewBlog: React.FC = () => {
                               return;
                             }
                             setContent("GENERATING CONTENT USING AI ................")
-                            const apiKey = "h8KoPUI8zR3iYSChGaWm6fsLCRq2jgqQ";
+                            const apiKey = "fRMwFU0Q0Bcem6TF38tK8FWj3yG79hf9";
 
                             const client = new MistralClient(apiKey);
 
