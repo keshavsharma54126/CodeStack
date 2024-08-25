@@ -1,12 +1,12 @@
 # CodeStack
 
-A brief description of what your project does.
+CodeStack is a place for users to publish their thoughts and show it to the entire world. It is a platform for bloggers, journalists and creators to quench their thirst of creative writing.
 
 ## Features
 
-- **Feature 1:** Describe a key feature.
-- **Feature 2:** Describe another key feature.
-- **Feature 3:** Describe an additional feature.
+- **Create and Publish Blogs** Users can create and publish  blogs. Blogs can contain text and images.
+- **Like and Subscribe:** Users can like/dislike a blog and also subscribe to another user. Subscribing to a user will add the user's blogs to their feed.
+- **Write Blogs with Generative AI:** Users can write blogs with the help of Generative AI or  they can use Generative AI to help them  write efficiently.
 
 ## Installation
 
