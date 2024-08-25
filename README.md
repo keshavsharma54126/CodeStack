@@ -52,6 +52,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Contact
 
-Your Name - [your.email@example.com](mailto:your.email@example.com)
+Your Name - [sharmakeshav54126@gmail.com](mailto:sharmakeshav54126@gmail.com)
 
-Project Link: [https://github.com/yourusername/project-name](https://github.com/yourusername/project-name)
+Project Link: [https://github.com/keshavsharma54126/CodeStack]([https://github.com/keshavsharma54126/CodeStack])
