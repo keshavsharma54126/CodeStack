@@ -1,4 +1,4 @@
-# CodeStack
+# [CodeStack](https://code-stack-nine.vercel.app/signup)
 
 CodeStack is a place for users to publish their thoughts and show it to the entire world. It is a platform for bloggers, journalists and creators to quench their thirst of creative writing.
 
@@ -54,4 +54,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 Your Name - [sharmakeshav54126@gmail.com](mailto:sharmakeshav54126@gmail.com)
 
-Project Link: [https://github.com/keshavsharma54126/CodeStack]([https://github.com/keshavsharma54126/CodeStack])
+Project Link: [https://github.com/keshavsharma54126/CodeStack](https://github.com/keshavsharma54126/CodeStack)
