@@ -11,23 +11,33 @@ import EditBlog from "./pages/EditBlog";
 
 function Home() {
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-cover bg-center bg-gray-300">
-      <div className="bg-white bg-opacity-80 p-8 rounded-lg shadow-lg text-center">
-        <h1 className="text-5xl font-bold mb-4 text-gray-800">
+    <div
+      className="flex flex-col items-center justify-center h-screen bg-cover bg-center relative"
+      style={{
+        backgroundImage: "url('https://source.unsplash.com/random/1920x1080')",
+      }}>
+      {/* Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black to-transparent opacity-60"></div>
+
+      {/* Main Content */}
+      <div className="relative z-10 text-center">
+        <h1 className="text-6xl font-extrabold text-white mb-6 tracking-wider drop-shadow-lg">
           Welcome to CodeStack
         </h1>
-        <p className="text-lg mb-6 text-gray-600">
+        <p className="text-2xl text-gray-200 mb-8 max-w-lg mx-auto drop-shadow-md">
           A platform for bloggers, journalists, and creators to share their
           thoughts and ideas with the world.
         </p>
+
+        {/* Buttons */}
         <div className="flex justify-center space-x-4">
           <Link to="/signin">
-            <button className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300">
+            <button className="px-8 py-4 bg-indigo-600 text-white text-lg font-semibold rounded-full hover:bg-indigo-700 transition-transform transform hover:scale-105 shadow-md">
               Sign In
             </button>
           </Link>
           <Link to="/signup">
-            <button className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition duration-300">
+            <button className="px-8 py-4 bg-green-500 text-white text-lg font-semibold rounded-full hover:bg-green-600 transition-transform transform hover:scale-105 shadow-md">
               Sign Up
             </button>
           </Link>
