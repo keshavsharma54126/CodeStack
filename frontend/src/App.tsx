@@ -19,7 +19,7 @@ function Home() {
       <div className="absolute inset-0 bg-gradient-to-b from-black to-transparent opacity-60"></div>
       <div className="relative z-10 text-center">
         <h1 className="text-6xl font-extrabold text-white mb-6 tracking-wider drop-shadow-lg">
-          Welcome to CodeStack
+          Welcome to FinalDraft
         </h1>
         <p className="text-2xl text-gray-200 mb-8 max-w-lg mx-auto drop-shadow-md">
           A platform for bloggers, journalists, and creators to share their
