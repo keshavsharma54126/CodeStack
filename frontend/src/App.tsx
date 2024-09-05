@@ -16,10 +16,7 @@ function Home() {
       style={{
         backgroundImage: "url('https://source.unsplash.com/random/1920x1080')",
       }}>
-      {/* Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black to-transparent opacity-60"></div>
-
-      {/* Main Content */}
       <div className="relative z-10 text-center">
         <h1 className="text-6xl font-extrabold text-white mb-6 tracking-wider drop-shadow-lg">
           Welcome to CodeStack
@@ -28,8 +25,6 @@ function Home() {
           A platform for bloggers, journalists, and creators to share their
           thoughts and ideas with the world.
         </p>
-
-        {/* Buttons */}
         <div className="flex justify-center space-x-4">
           <Link to="/signin">
             <button className="px-8 py-4 bg-indigo-600 text-white text-lg font-semibold rounded-full hover:bg-indigo-700 transition-transform transform hover:scale-105 shadow-md">

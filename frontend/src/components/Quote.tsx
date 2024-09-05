@@ -1,19 +1,14 @@
-
-
-export  const Quote = () => {
+export const Quote = () => {
   return (
-    <div className="h-screen bg-slate-300 flex flex-col  justify-center items-center">
-            <div className="text-3xl font-extrabold max-w-lg text-center ">
-                "The Customre service I recieved was exceptional .The support team went above and beyond to address my concerns"
-            </div>
-            <div className="max-w-md text-xl font-semibold mt-4">
-                Keshav Sharma
-            </div>
-            <div className="max-w-md font-light ">
-                CEO, CodeStack
-            </div>
+    <div className="h-screen flex flex-col justify-center items-center p-8 text-white">
+      <div className="text-4xl font-extrabold max-w-lg text-center leading-relaxed">
+        "The customer service I received was exceptional. The support team went
+        above and beyond to address my concerns."
+      </div>
+      <div className="max-w-md text-2xl font-semibold mt-4">Keshav Sharma</div>
+      <div className="text-lg font-light mt-1">CEO, CodeStack</div>
     </div>
-  )
-}
+  );
+};
 
 export default Quote;
