@@ -21,14 +21,14 @@ const BlogCard = ({ authorName, title, content, publishedDate, blogid, like, dis
 
   return (
     <Link to={`/blog/${blogid}`} className="block transform transition-transform hover:scale-105">
-      <div className="flex flex-col sm:flex-row max-w-4xl   mx-auto p-6 bg-white shadow-md rounded-lg border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow duration-300">
-        <div className="flex-1 p-4">
+      <div className="flex flex-col sm:flex-row max-w-4xl   mx-auto p-4 bg-white shadow-md rounded-lg border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow duration-300">
+        <div className="flex-1 p-2">
           <div className="flex items-center mb-4">
             <div className="flex items-center justify-center mb-16 md:mb-0">
               <AvatarComponent name={authorName} />
             </div>
             <div className="ml-4 text-gray-700">
-              <div className="flex flex-col md:flex-row gap-8">
+              <div className="flex flex-col md:flex-row ">
                 <div>
                   <span className="font-semibold text-lg">{authorName}</span>
                   <div className="text-sm text-gray-500">

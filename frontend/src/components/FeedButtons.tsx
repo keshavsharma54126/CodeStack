@@ -1,50 +1,58 @@
-import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 const FeedButtons = React.memo(() => {
   const location = useLocation();
+  const tabs = ["For you", "Subscriptions", "My Posts"];
 
-  const getButtonClass = (path: string) => {
-    return location.pathname === path ?"relative text-white group-hover:bg-white group-hover:text-black":"relative text-black group-hover:text-white"
+  const getPath = (tab: string) => {
+    switch (tab) {
+      case "For you":
+        return "/blogs";
+      case "Subscriptions":
+        return "/subscriptions";
+      case "My Posts":
+        return "/myblogs";
+      default:
+        return "";
+    }
   };
-  const getButtonClasss = (path:string)=>{
-      return location.pathname === path ?"absolute inset-0 w-full h-full bg-black border-2 border-black group-hover:bg-white":"absolute inset-0 w-full h-full bg-white border-2 border-black group-hover:bg-black"
-  }
+
+  const getTabFromPath = (path: string) => {
+    switch (path) {
+      case "/blogs":
+        return "For you";
+      case "/subscriptions":
+        return "Subscriptions";
+      case "/myblogs":
+        return "My Posts";
+      default:
+        return "For you";
+    }
+  };
+
+  const [activeTab, setActiveTab] = useState(getTabFromPath(location.pathname));
+
+  useEffect(() => {
+    setActiveTab(getTabFromPath(location.pathname));
+  }, [location.pathname]);
 
   return (
-    <div className="mt-48  md:mt-20 flex flex-row items-center justify-center">
-      <div className="fixed flex flex-row gap-5 md:gap-10 p-3">
-        <div>
-          <Link to="/blogs">
-              <button className="relative inline-block px-4 py-2 font-medium group">
-                  <span className="absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-black group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
-                  <span className={getButtonClasss('/blogs')}></span>
-                  <span className={getButtonClass('/blogs')}>MyFeed</span>
-              </button>
-          </Link>
-        </div>
-        <div>
-          <Link to="/subscriptions">
-            
-              <button className="relative inline-block px-4 py-2 font-medium group">
-              <span className="absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-black group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
-              <span className={getButtonClasss('/subscriptions')}></span>
-              <span className={getButtonClass('/subscriptions')}>Subscriptions</span>
-              </button>
-           
-          </Link>
-        </div>
-        <div>
-          <Link to="/myblogs">
-              <button className="relative inline-block px-4 py-2 font-medium group">
-                  <span className="absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-black group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
-                  <span className={getButtonClasss('/myblogs')}></span>
-                  <span className={getButtonClass('/myblogs')}>MyBlogs</span>
-              </button>
-          </Link>
-        </div>
-      </div>
-    </div>
+    <nav className="flex items-center justify-center gap-8 border-b border-gray-700 mt-20">
+      {tabs.map((tab) => (
+        <Link key={tab} to={getPath(tab)}>
+          <div
+            className={`px-4 py-2 cursor-pointer ${activeTab === tab ? "font-bold text-black" : "text-gray-800"}`}
+            // onClick={() => setActiveTab(tab)}
+            aria-selected={activeTab === tab}>
+            {tab}
+            {activeTab === tab && (
+              <div className="h-1 mt-1 bg-black rounded-full" />
+            )}
+          </div>
+        </Link>
+      ))}
+    </nav>
   );
 });
 
