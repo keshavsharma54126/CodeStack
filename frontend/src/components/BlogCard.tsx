@@ -48,7 +48,7 @@ const BlogCard = ({
   return (
     <Link
       to={`/blog/${blogid}`}
-      className={`block transform transition-transform hover:scale-105 hover:shadow-lg rounded-lg border border-gray-300 overflow-hidden transition-shadow duration-300 ${randomColor}`}>
+      className={`block transform transition-transform hover:scale-105 hover:shadow-lg rounded-lg border border-gray-300 overflow-hidden  duration-300 ${randomColor}`}>
       <div
         className={`flex flex-col sm:flex-row max-w-4xl mx-auto p-6 shadow-lg rounded-lg border border-gray-300 overflow-hidden hover:shadow-xl transition-shadow duration-300 ${randomColor}`}>
         <div className="flex-1 p-4">

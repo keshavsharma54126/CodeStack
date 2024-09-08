@@ -28,7 +28,7 @@ const Auth = ({ type }: { type: "signup" | "signin" }) => {
     }
   }
   return (
-    <div className="flex flex-col justify-center items-center p-6 bg-gray-50 shadow-lg rounded-xl w-full max-w-sm">
+    <div className="flex flex-col justify-center items-center p-6 bg-gray-50 shadow-lg rounded-xl w-full ">
       <h1 className="text-3xl font-bold text-gray-900 mb-6">
         Welcome to FinalDraft
       </h1>
