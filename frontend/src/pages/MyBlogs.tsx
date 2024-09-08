@@ -1,18 +1,18 @@
 import AppBar from "../components/Appbar";
 import BlogCard from "../components/BlogCard";
-import { useBlogs } from "../hooks";
+import { useMyBlogs } from "../hooks";
 import BlogSkeleton from "../components/BlogSkeleton";
 import FeedButtons from "../components/FeedButtons";
 
 const MyBlogs = () => {
-  const [loading, blogs] = useBlogs();
+  const [loading, blogs] = useMyBlogs();
 
   if (loading) {
     return (
       <div className="mt-24 md:mt-5 pt-16">
         <AppBar />
         <div className="relative">
-          <div className="fixed md:top-10 left-0 right-0 bg-white shadow-md z-10">
+          <div className="fixed md:top-10 mt-4 lg:mt-2 left-0 right-0 bg-white shadow-md z-10 ">
             <FeedButtons />
           </div>
           <div className="container mx-auto px-4 py-6 pt-14">
@@ -32,7 +32,7 @@ const MyBlogs = () => {
     <div className="mt-24 md:mt-5 pt-8 bg-gray-100 min-h-screen">
       <AppBar />
       <div className="relative">
-        <div className="fixed md:top-10 left-0 right-0 bg-white shadow-md z-10">
+        <div className="fixed md:top-10 mt-4 lg:mt-2 left-0 right-0 bg-white shadow-md z-10 ">
           <FeedButtons />
         </div>
         <div className="container mx-auto px-4 py-6 pt-14">
