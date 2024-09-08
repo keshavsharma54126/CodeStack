@@ -16,7 +16,9 @@ const Blogs = () => {
             <FeedButtons />
           </div>
           <div className="container mx-auto px-4 py-6 pt-14">
-            <div className="flex flex-col items-center space-y-6 mt-24 md:mt-16">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-24 md:mt-16">
+              <BlogSkeleton />
+              <BlogSkeleton />
               <BlogSkeleton />
               <BlogSkeleton />
               <BlogSkeleton />
@@ -36,7 +38,7 @@ const Blogs = () => {
           <FeedButtons />
         </div>
         <div className="container mx-auto px-4 py-6 pt-14">
-          <div className="flex flex-col items-center space-y-3 mt-24 md:mt-16">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mt-24 md:mt-16">
             {blogs.map((blog) => (
               <div key={blog.id} className="w-full">
                 <BlogCard
