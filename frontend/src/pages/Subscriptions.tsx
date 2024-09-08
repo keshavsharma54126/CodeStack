@@ -27,14 +27,14 @@ const Subscriptions = () => {
   }
 
   return (
-    <div className="mt-32 md:mt-5 pt-16 bg-gray-100 min-h-screen">
+    <div className="mt-32 md:mt-5 pt-8 bg-gray-100 min-h-screen">
       <Appbar />
       <div className="relative ">
         <div className="fixed md:top-10 left-0 right-0 bg-white shadow-md z-10 ">
           <FeedButtons />
         </div>
         <div className="container mx-auto px-4 py-6 pt-20">
-          <div className="flex flex-col items-center space-y-6 mt-10">
+          <div className="flex flex-col items-center space-y-3 mt-10">
             {blogs.map((blog) => (
               <div key={blog.id} className="w-full">
                 <BlogCard

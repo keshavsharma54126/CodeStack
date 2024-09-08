@@ -38,7 +38,7 @@ const FeedButtons = React.memo(() => {
   }, [location.pathname]);
 
   return (
-    <nav className="flex items-center justify-center gap-8 border-b border-gray-700 mt-20">
+    <nav className="flex items-center justify-center gap-8 border-b border-gray-700 mt-20 lg:mt-16">
       {tabs.map((tab) => (
         <Link key={tab} to={getPath(tab)}>
           <div

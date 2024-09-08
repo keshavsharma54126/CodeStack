@@ -105,6 +105,26 @@ const modules = {
               );
               if (image) {
                 image.classList.add("custom-quill-image");
+
+                // Create a remove button
+                const removeButton = document.createElement("button");
+                removeButton.innerHTML = "✖"; // Cross icon
+                removeButton.className = "remove-image-button"; // Use Tailwind classes
+                removeButton.style.display = "none"; // Initially hidden
+                removeButton.onclick = () => {
+                  quill.deleteText(index, 1); // Remove the image
+                  image.remove(); // Remove the image element
+                  removeButton.remove(); // Remove the button itself
+                };
+
+                // Show the remove button on hover
+                image.parentNode?.insertBefore(removeButton, image.nextSibling);
+                image.addEventListener("mouseenter", () => {
+                  removeButton.style.display = "block"; // Show on hover
+                });
+                image.addEventListener("mouseleave", () => {
+                  removeButton.style.display = "none"; // Hide when not hovering
+                });
               }
             } catch (error) {
               console.error("Failed to upload image: ", error);
