@@ -1,5 +1,4 @@
 import AppBar from "../components/Appbar";
-import Appbar from "../components/Appbar";
 import BlogCard from "../components/BlogCard";
 import BlogSkeleton from "../components/BlogSkeleton";
 import FeedButtons from "../components/FeedButtons";
