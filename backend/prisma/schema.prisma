@@ -19,10 +19,12 @@ model User{
   name String?
   password String
   posts Post[]
-  followers Subscription[] @relation("Followers")
-  following Subscription[] @relation("Following")
+  subscriber Subscription[] @relation("subscriber")
+  subscription Subscription[] @relation("subscription")
   postLikes PostLike[]
   comments Comments[]
+  following Follower[] @relation("Following")
+  followers Follower[] @relation("Followers")
 }
 
 model Post{
@@ -72,15 +74,26 @@ model Comments{
   
 }
 
-model Subscription{
+model Follower{
   id String @id @default(uuid())
   follower User @relation("Following",fields:[followerId],references: [id])
   followerId String
   following User @relation("Followers",fields:[followingId],references: [id])
   followingId String
+  startDate DateTime @default(now())
+  endDate DateTime
+  @@unique([followerId,followingId])
+}
+
+model Subscription{
+  id String @id @default(uuid())
+  subscriber User @relation("subscriber",fields:[subscriberId],references: [id])
+  subscriberId String
+  subscription User @relation("subscription",fields:[subscriptionId],references: [id])
+  subscriptionId String
   amountPaid Float 
   paymentStaus String
   startDate DateTime @default(now())
   endDate DateTime
-  @@unique([followerId,followingId])
+  @@unique([subscriberId,subscriptionId])
 }

@@ -98,14 +98,14 @@ const FullBlog = () => {
   }
 
   return (
-    <div className="pt-8 min-h-screen mt-40">
+    <div className="min-h-screen mt-40">
       <AppBar />
       <div className="relative">
         <div className="fixed md:top-10 left-0 right-0 bg-white shadow-md z-10 ">
           <FeedButtons />
         </div>
-        <div className="md:-mt-24 container mx-auto px-2 py-6 pt-20 ">
-          <div className="max-w-12xl mx-auto rounded-md flex flex-col lg:flex-row">
+        <div className="container mx-auto px-2  py-6 ">
+          <div className="max-w-12xl mx-auto rounded-md flex flex-col lg:flex-row mt-28 lg:mt-1">
             <div className="flex-1">
               <h1
                 className="text-4xl font-bold mb-4 text-center lg:text-left"
