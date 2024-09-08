@@ -28,11 +28,11 @@ const Auth = ({ type }: { type: "signup" | "signin" }) => {
     }
   }
   return (
-    <div className="flex flex-col justify-center items-center p-6 bg-gray-50 shadow-lg rounded-xl">
-      <h1 className="text-4xl font-bold text-gray-900 mb-6">
+    <div className="flex flex-col justify-center items-center p-6 bg-gray-50 shadow-lg rounded-xl w-full max-w-sm">
+      <h1 className="text-3xl font-bold text-gray-900 mb-6">
         Welcome to FinalDraft
       </h1>
-      <div className="text-xl font-medium mb-4">
+      <div className="text-lg font-medium mb-4">
         {type === "signin"
           ? "Don't have an account?"
           : "Already have an account?"}
@@ -42,7 +42,7 @@ const Auth = ({ type }: { type: "signup" | "signin" }) => {
           {type === "signin" ? "Sign up" : "Sign in"}
         </Link>
       </div>
-      <div className="w-full max-w-md">
+      <div className="w-full">
         {type === "signup" && (
           <LabelledInput
             label="Username"
